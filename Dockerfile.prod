@@ -1,0 +1,17 @@
+# dev build
+FROM golang:latest AS dev
+# setando diretorio
+WORKDIR /prj/go
+# copiando o build
+COPY main.go main.go
+# gerando o build
+RUN go build main.go
+# executando o build
+#CMD ["go", "run", "main"]
+
+# do zero
+FROM scratch
+# copiando do dev
+COPY --from=dev /prj/go .
+# rodando o build
+CMD ["./main"]
